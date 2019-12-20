@@ -10,7 +10,8 @@ module.exports = {
     stats: 'verbose',
     output: {
         libraryTarget: 'var',
-        library: 'Client'
+        library: 'Client',
+        path: path.resolve(__dirname, 'dist')
     },
     module: {
         rules: [
@@ -21,7 +22,11 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                use: [ 'style-loader', 'css-loader', 'sass-loader' ]
+                use: [
+                    { loader: "style-loader" },
+                    { loader: "css-loader" },
+                    { loader: "sass-loader" }
+                  ]
         }
         ]
     },

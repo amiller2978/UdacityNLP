@@ -1,46 +1,41 @@
-const addDataURL = '/test2'
-// sets port 8080 to default or unless otherwise specified in the environment
-
 function handleSubmit(event) {
     event.preventDefault()
-    postData(addDataURL, {url:'http://www.google.com'});
+    let form = document.querySelector('form');
+    let urlText = document.getElementById('name').value;
 
-    // check what text was put into the form field
-    //future URL validation
-    let formText = document.getElementById('name').value
-    Client.checkForName(formText)
-    console.log(formText)
+   if (validateURL(urlText) != false) {
+    getData(urlText);
+    form.reset();
+   };
     
-
-    console.log("::: Form Submitted :::")
-    fetch('http://localhost:8081/test')
-    .then(res => res.json())
-    .then(function(res) {
-        document.getElementById('results').innerHTML = res.val1
-    })
 }
 
-/* Function to POST data */
-
-const postData = async (url = '', data = {}) => {
-  console.log(data);
-    const response = await fetch(url, {
+async function getData(url) {
+    let response = await fetch('http://localhost:3000/getSentiment', {
         method: 'POST',
-        credentials: 'same-origin', // include, *same-origin
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+            input: {
+                url: `${url}`,
+            }
+        })
     });
-
+    let newsSentimentData = await response.json();
     try {
-        const newData = await response.json();
-        return newData
+        console.log(newsSentimentData);
+        document.getElementById('inputURL').textContent = `URL tested: ` + url;
+        document.getElementById('polarity').textContent = `Polarity: ` + newsSentimentData.polarity;
+        document.getElementById('subjectivity').textContent = `Subjectivity: ` + newsSentimentData.subjectivity;
+        //add calc to show percentage or provide scale to confidece
+        document.getElementById('polarity_conf').textContent = `Polarity Confidence: ` + newsSentimentData.polarity_confidence;
+        document.getElementById('subjectivity_conf').textContent = `subectivity confidence: ` + newsSentimentData.subjectivity_confidence;
     } catch (error) {
-        console.log("error", error);
-        //  handle the error
+        console.log(error);
     }
-};
+}
 
 
-export { handleSubmit }
+import { validateURL } from "./validateURL";
+export { handleSubmit, getData }

@@ -14,30 +14,38 @@
 
         <header>
             <div class="">
-                Logo
+                News sentiment checker
             </div>
-            <div class="">
+            <!-- <div class="">
                 navigation
-            </div>
+            </div> -->
         </header>
 
         <main>
             <section>
                 <form class="" onsubmit="return Client.handleSubmit(event)">
-                    <input id="name" type="text" name="input" value="" onblur="onBlur()" placeholder="Name">
+                    <input id="name" type="text" name="input" value="" placeholder="News URL to use for sentiment check">
                     <input type="submit" name="" value="submit" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">
                 </form>
             <section>
 
             <section>
                 <strong>Form Results:</strong>
-                <div id="results"></div>
+                <div id="results">
+   
+                 <div id="inputURL"></div>
+                 <div id="polarity"></div>
+                 <div id="polarity_conf"></div>
+                 <div id="subjectivity"></div>
+                 <div id="subjectivity_conf"></div>
+                </div>
             </section>
         </main>
 
         <footer>
-            <p>This is a footer</p>
+            <p>For more information about Natural Language processing and the sentiment analysis visit:<a href="https://aylien.com/text-api" target="_blank"> Aylien</a></p>  
+            <div id='aylienLink'></div>
         </footer>
-
+        
     </body>
 </html>
