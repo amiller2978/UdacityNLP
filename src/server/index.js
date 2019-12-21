@@ -49,7 +49,7 @@ app.post('/getSentiment', (request, response) => {
     const inputURL = request.body.input.url;
     console.log("Request to '/getSentiment' endpoint", inputURL);
     textAPI.sentiment({ url: `${inputURL}` }, (error, result, remaining) => {
-        console.log("Aylien Callback",
+        console.log("Aylien Data",
             result,
             remaining);
         response.send(result);
