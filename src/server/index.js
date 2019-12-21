@@ -4,17 +4,17 @@ dotenv.config();
 const bodyParser = require('body-parser')
 var path = require('path')
 const express = require('express')
-const mockAPIResponse = require('./mockAPI.js')
+
 
 ///support for alyien API
 var AYLIENTextAPI = require('aylien_textapi');
 
-var textapi = new AYLIENTextAPI({
-  application_id: process.env.API_ID,
-  application_key: process.env.API_KEY
+var textAPI = new AYLIENTextAPI({
+    application_id: process.env.API_ID,
+    application_key: process.env.API_KEY
 });
 
-let AylienData = {};
+
 //consider moving port to .env and then client can read it
 let port = 3000
 const app = express()
@@ -41,23 +41,17 @@ app.get('/', function (req, res) {
 })
 
 
+//main function this goes to Aylien to get the info and returns it to the client
 
-app.post('/getSentiment', function (request, response) {
-    let inputURL = request.body.input.url;
-    console.log(request.body.input.url);
-    textapi.sentiment({
-        url: `${inputURL}`
-    }, function (error, response) {
-        if (error === null) {
-            AylienData['polarity'] = response.polarity;
-            AylienData['subjectivity'] = response.subjectivity;
-            AylienData['polarity_confidence'] = response.polarity_confidence;
-            AylienData['subjectivity_confidence'] = response.subjectivity_confidence;
-            return AylienData;
-        }
+
+
+app.post('/getSentiment', (request, response) => {
+    const inputURL = request.body.input.url;
+    console.log("Request to '/getSentiment' endpoint", inputURL);
+    textAPI.sentiment({ url: `${inputURL}` }, (error, result, remaining) => {
+        console.log("Aylien Callback",
+            result,
+            remaining);
+        response.send(result);
     });
-    response.send(AylienData);
 });
-
-
-  console.log('last line')

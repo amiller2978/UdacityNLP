@@ -3,9 +3,9 @@ function validateURL(inputURL) {
     if (urlRGEX.test(inputURL)) {
         return true
     } else {
-        alert(`Your URL fails validation enter a valid url to proceed`);
+        alert(`Your URL fails validation, please enter a valid url to proceed`);
         return false
-        
+
     }
 }
 

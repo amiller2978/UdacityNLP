@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const HtmlWebPackPlugin = require("html-webpack-plugin")
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
+
 module.exports = {
     entry: './src/client/index.js',
     mode: 'development',
@@ -22,11 +23,7 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                use: [
-                    { loader: "style-loader" },
-                    { loader: "css-loader" },
-                    { loader: "sass-loader" }
-                  ]
+                use: [ "style-loader" ,"css-loader" , "sass-loader" ]
         }
         ]
     },
@@ -44,5 +41,6 @@ module.exports = {
             cleanStaleWebpackAssets: true,
             protectWebpackAssets: false
         })
+        
     ]
 }

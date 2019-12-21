@@ -17,9 +17,9 @@ console.log(validateURL);
 
 
 export {
- 
+
     validateURL,
     handleSubmit,
     getData
-    
+
 }
